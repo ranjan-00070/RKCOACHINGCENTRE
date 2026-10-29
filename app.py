@@ -84,7 +84,7 @@ if st.button("अब Search 🔎 करें"):
             tts = gTTS(text=response.text, lang=tts_lang, slow=False)
             tts.write_to_fp(sound_file)
             st.audio(sound_file, format='audio/mp3')
-        except Exception as e:
+         except Exception as e:
             st.warning("Audio generate nahi ho paya.")
       
             st.error(f"कुछ समस्या आई: {e}")
