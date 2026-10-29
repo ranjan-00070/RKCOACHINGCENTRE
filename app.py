@@ -3,7 +3,7 @@ import google.generativeai as genai
 from streamlit_mic_recorder import speech_to_text
 
 # पेज कॉन्फिगरेशन
-st.set_page_config(page_title="RK Coaching Centre - Smart Learning", page_icon="🎓", layout="wide")
+st.set_page_config(page_title="RK COACHING CENTRE - Smart Learning", page_icon="🎓", layout="wide")
 
 # कस्टम स्टाइलिंग
 st.markdown("""
@@ -46,7 +46,7 @@ if st.button("कंटेंट जनरेट करें 🚀"):
     else:
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            model = genai.GenerativeModel("gemini-1.5-pro")
 
             if mode == "💡 टॉपिक समझें (Concept)":
                 prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक '{user_input}' को आसान हिंदी में समझाइए। इसमें शामिल करें: 1. आसान परिभाषा, 2. रियल-लाइफ उदाहरण, 3. महत्वपूर्ण बातें।"
