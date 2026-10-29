@@ -26,4 +26,4 @@ with st.sidebar:
 
 # मुख्य हेडिंग
 st.title("⚡ AI Learning & Study Dashboard")
-st.write("कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा और रियल
+st.write("कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा और रियल")
