@@ -79,12 +79,10 @@ if st.button("अब Search 🔎 करें"):
             st.markdown(response.text)
 # Audio Player Code
         try:
-            tts_lang = 'hi' if language == "हिंदी (Hindi)" else 'en'
-            sound_file = BytesIO()
-            tts = gTTS(text=response.text, lang=tts_lang, slow=False)
-            tts.write_to_fp(sound_file)
-            st.audio(sound_file, format='audio/mp3')
-         except Exception as e:
-            st.warning("Audio generate nahi ho paya.")
-      
-            st.error(f"कुछ समस्या आई: {e}")
+        tts_lang = 'hi' if language == "हिंदी (Hindi)" else 'en'
+        sound_file = BytesIO()
+        tts = gTTS(text=response.text, lang=tts_lang, slow=False)
+        tts.write_to_fp(sound_file)
+        st.audio(sound_file, format='audio/mp3')
+    except Exception as e:
+        st.warning("Audio generate nahi ho paya.")
