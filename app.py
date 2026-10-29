@@ -44,7 +44,7 @@ if st.button("कंटेंट जनरेट करें 🚀"):
                 else:
                     prompt = f"विषय: {user_input}। इस टॉपिक पर 3 महत्वपूर्ण बहुविकल्पीय प्रश्न (MCQs) बनाएं, जिसमें 4 विकल्प हों और नीचे सही उत्तर का स्पष्टीकरण भी दें।"
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash',
+                    model='gemini-1.5-flash',
                     contents=prompt,
                 )
                 st.success("तैयार है!")
