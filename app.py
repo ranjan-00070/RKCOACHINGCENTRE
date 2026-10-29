@@ -67,8 +67,9 @@ st.markdown("""
         color: #ffffff !important;
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 12px !important;
-        padding: 13px 18px !important;
+        padding: 14px 18px !important;
         font-size: 1.05rem !important;
+        height: 52px !important;
         transition: all 0.3s ease;
     }
     .stTextInput input:focus {
@@ -76,30 +77,33 @@ st.markdown("""
         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
     }
 
-    /* माइक बटन की स्टाइलिंग (Compact Icon UI) */
+    /* माइक बटन की नई वाइट बॉक्स स्टाइलिंग (बड़ा साइज और क्लीन लुक) */
     div[data-testid="stCustomComponentV1"] {
         display: flex;
         align-items: flex-end;
         height: 100%;
+        justify-content: center;
     }
     div[data-testid="stCustomComponentV1"] button {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
-        color: #ffffff !important;
-        font-size: 1.4rem !important;
-        height: 48px !important;
+        background: #ffffff !important;
+        color: #dc2626 !important;
+        font-size: 1.75rem !important;
+        height: 52px !important;
         width: 100% !important;
-        border-radius: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4) !important;
+        min-width: 54px !important;
+        border-radius: 14px !important;
+        border: 2px solid #f1f5f9 !important;
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25) !important;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        transition: all 0.2s ease-in-out !important;
+        transition: all 0.25s ease-in-out !important;
     }
     div[data-testid="stCustomComponentV1"] button:hover {
-        transform: scale(1.04) !important;
-        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6) !important;
+        transform: translateY(-2px) scale(1.05) !important;
+        background: #f8fafc !important;
+        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.45) !important;
     }
 
     /* मुख्य AI सर्च बटन */
@@ -115,7 +119,7 @@ st.markdown("""
         cursor: pointer;
         transition: all 0.25s ease-in-out !important;
         box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
-        margin-top: 10px;
+        margin-top: 12px;
     }
     .stButton>button:hover {
         transform: translateY(-2px);
@@ -141,7 +145,7 @@ st.markdown("""
 # ---------------------------------------------------------
 with st.sidebar:
     st.markdown("### ⚡ **RK AI Studio**")
-    st.caption("✨ *आपका पर्सनल AI मेंटर / Your Personal AI Mentor*")
+    st.caption("✨ *आपका पर्सनल AI / Your Personal AI*")
     st.markdown("---")
 
     api_key = st.secrets["GEMINI_API_KEY"]
@@ -169,13 +173,13 @@ with st.sidebar:
     st.info("💡 **सुझाव / Pro-Tip:** एक समय में एक ही टॉपिक पर फोकस करें ताकि आप गहराई से समझ सकें।")
 
 # ---------------------------------------------------------
-# 4. मुख्य हेडर (AI Thinking & Learning Hub)
+# 4. मुख्य हेडर (AI Thinking & Learning Partner)
 # ---------------------------------------------------------
 st.markdown("""
 <div class="header-card">
     <div class="badge">🚀 Powered by Gemini 2.5 Flash</div>
     <h1 style="margin: 0; font-size: 2.1rem; font-weight: 800; background: linear-gradient(90deg, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        AI Thinking & Learning Hub 🧠
+        AI Thinking & Learning Partner 🧠
     </h1>
     <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 1.05rem;">
         कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा, वास्तविक उदाहरणों और सही स्ट्रक्चर के साथ समझाएगा।<br>
@@ -185,15 +189,15 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 5. इनपुट बार + माइक आइकॉन (इनपुट के ठीक आगे)
+# 5. इनपुट बार + बड़ा वाइट बॉक्स माइक बटन
 # ---------------------------------------------------------
 audio_lang = "hi-IN" if language == "हिंदी (Hindi)" else "en-US"
 
 if "topic_input" not in st.session_state:
     st.session_state.topic_input = ""
 
-# इनपुट बॉक्स और माइक को एक ही लाइन में रखना
-col_text, col_mic = st.columns([11, 1], vertical_alignment="bottom")
+# इनपुट बॉक्स और माइक बटन का ग्रिड लेआउट
+col_text, col_mic = st.columns([10.5, 1.5], vertical_alignment="bottom")
 
 with col_text:
     user_input = st.text_input(
@@ -203,7 +207,7 @@ with col_text:
     )
 
 with col_mic:
-    # बिना किसी लंबे टेक्स्ट के केवल 🎙️ और ⏹️ आइकॉन
+    # व्हाइट बॉक्स में बड़ा माइक आइकॉन
     spoken_text = speech_to_text(
         language=audio_lang,
         start_prompt="🎙️",
@@ -223,41 +227,3 @@ search_clicked = st.button("🚀 AI सर्च करें / Generate with AI
 # 7. AI जनरेशन एवं आउटपुट
 # ---------------------------------------------------------
 active_topic = user_input.strip()
-
-if search_clicked:
-    if not active_topic:
-        st.warning("⚠️ कृपया पहले कोई टॉपिक लिखें या माइक से बोलें!")
-    else:
-        try:
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-2.5-flash")
-
-            if "💡 टॉपिक समझें" in mode:
-                prompt = (
-                    f"आप एक उत्कृष्ट कंप्यूटर और अकादमिक शिक्षक हैं। कृपया इस विषय को बहुत ही आसान भाषा, "
-                    f"स्पष्ट पॉइंट्स और दैनिक/व्यावहारिक जीवन के रियल-लाइफ उदाहरणों (Real-life Examples) के साथ समझाएं: {active_topic}"
-                )
-            elif "🛣️ सीखने का रोडमैप" in mode:
-                prompt = (
-                    f"कृपया इस विषय को बेसिक से एडवांस तक सीखने के लिए एक व्यावहारिक, चरण-दर-चरण "
-                    f"(Step-by-Step) समयबद्ध रोडमैप (Learning Roadmap) तैयार करें: {active_topic}"
-                )
-            else:
-                prompt = (
-                    f"कृपया '{active_topic}' पर आधारित 5 महत्वपूर्ण परीक्षा-उपयोगी अभ्यास प्रश्न (Quiz/MCQs) तैयार करें, "
-                    f"जिनमें सही उत्तर और उनके स्पष्ट कारण (Explanation) भी शामिल हों।"
-                )
-
-            if language == "हिंदी (Hindi)":
-                final_prompt = f"{prompt}\n\nकृपया पूरा उत्तर सरल, सहज हिंदी में दें और तकनीकी शब्दों (Technical Terms) को कोष्ठक (brackets) में अंग्रेजी में भी लिखें ताकि समझना आसान हो।"
-            else:
-                final_prompt = f"{prompt}\n\nPlease provide the complete response clearly, structurally, and professionally in English."
-
-            with st.spinner("⚡ AI कंटेंट तैयार कर रहा है..."):
-                response = model.generate_content(final_prompt)
-
-            st.success("✅ उत्तर तैयार है!")
-            st.markdown(f'<div class="result-box">{response.text}</div>', unsafe_allow_html=True)
-
-        except Exception as e:
-            st.error(f"❌ समस्या आई / Error encountered: {e}")
