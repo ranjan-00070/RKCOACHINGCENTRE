@@ -64,7 +64,7 @@ if st.button("अब Search 🔎 करें"):
             elif mode == "🎯 रोडमैप (Roadmap)":
                 prompt = f"कृपया इस टॉपिक को सीखने के लिए एक पूरा स्टेप-बाय-स्टेप रोडमैप तैयार करें: {user_input}"
             else:
-                prompt = f"कृपया '{user_input}' पर आधारित 5 महत्वपूर्ण क्विज़/टेस्ट सवाल और उनके जवाब दें।"
+                prompt = f"कृपया '{user_input}' पर आधारित 5 महत्वपूर्ण क्विज/टेस्ट सवाल उत्तर सहित तैयार करें।"
 
             # भाषा के अनुसार Gemini को निर्देश
             if language == "हिंदी (Hindi)":
@@ -77,12 +77,19 @@ if st.button("अब Search 🔎 करें"):
 
             st.success("तैयार है!")
             st.markdown(response.text)
-# Audio Player Code
-        try:
-        tts_lang = 'hi' if language == "हिंदी (Hindi)" else 'en'
-        sound_file = BytesIO()
-        tts = gTTS(text=response.text, lang=tts_lang, slow=False)
-        tts.write_to_fp(sound_file)
+
+            # ऑडियो प्लेयर कोड (Text-to-Speech)
+            try:
+                tts_lang = 'hi' if language == "हिंदी (Hindi)" else 'en'
+                sound_file = BytesIO()
+                tts = gTTS(text=response.text, lang=tts_lang, slow=False)
+                tts.write_to_fp(sound_file)
+                st.audio(sound_file, format='audio/mp3')
+            except Exception as audio_err:
+                st.warning("Audio generate nahi ho paya.")
+
+        except Exception as e:
+            st.error(f"कुछ समस्या आई: {e}")
         st.audio(sound_file, format='audio/mp3')
     except Exception as e:
         st.warning("Audio generate nahi ho paya.")
