@@ -56,7 +56,7 @@ if st.button("कंटेंट जनरेट करें 🚀"):
     else:
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-2.5-pro")
+            model = genai.GenerativeModel("gemini-3.1-pro")
 
             if mode == "💡 टॉपिक समझें (Concept)":
                 prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक को बहुत आसान तरीके से समझाएं: {user_input}"
