@@ -6,7 +6,7 @@ from streamlit_mic_recorder import speech_to_text
 st.set_page_config(page_title="RK Coaching Centre - Smart Learning", page_icon="🎓", layout="wide")
 
 # कस्टम स्टाइलिंग
-st.markdown("""
+st.markdown(""")
 <style>
     .main { background-color: #0e1117; }
     .stButton>button { width: 100%; border-radius: 8px; height: 3em; background-color: #ff4b4b; color: white; font-weight: bold; }
