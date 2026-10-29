@@ -20,13 +20,13 @@ with st.sidebar:
     api_key = st.secrets["GEMINI_API_KEY"]
     language = st.sidebar.radio("भाषा चुनें / Select Language", ["हिंदी (Hindi)", "English"])
     st.markdown("---")
-    st.markdown("### आपको क्या करना है?")
-    mode = st.radio("Choose Your Topic", ["💡 समझें (in brief)", "🛣️ रोडमैप (Roadmap)", "📝 टेस्ट लें (Quiz)"])
+    st.markdown("### Choose Your Topic:")
+    mode = st.radio("आपको क्या करना हैं", ["💡 समझें (in brief)", "🛣️ प्लान बनाएं (Make Plans)", "📝 सवाल बनाएं (Make Questions)"])
     st.info("💡 केवल एक टॉपिक शुरू करने से आपकी तैयारी बेहतर होगी!")
 
 # मुख्य हेडिंग
 st.title("🧠 𝗔𝗜 𝗧𝗵𝗶𝗻𝗸𝗶𝗻𝗴 💬 𝗙𝗼𝗿 𝗬𝗼𝘂𝗿 𝗕𝗲𝘁𝘁𝗲𝗿 𝗟𝗲𝗮𝗿𝗻𝗶𝗻𝗴 🚀")
-st.write("कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा और रियल-लाइफ उदाहरण के साथ समझाएगा।")
+st.write("कोई भी Topic लिखें या बोलें, AI उसे Easy Language और Real-Life Example के साथ समझाएगा।")
 
 # ---------------------------------------------------------
 # मुख्य हेडिंग एवं माइक / इनपुट
