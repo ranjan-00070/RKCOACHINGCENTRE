@@ -3,7 +3,7 @@ import google.generativeai as genai
 from streamlit_mic_recorder import speech_to_text
 
 # पेज कॉन्फिगरेशन
-st.set_page_config(page_title="RK COACHING CENTRE - Smart Learning", page_icon="🎓", layout="wide")
+st.set_page_config(page_title="RK AI Studio - Smart Learning", page_icon="🤖", layout="wide")
 
 # कस्टम स्टाइलिंग
 st.markdown("""
@@ -15,7 +15,7 @@ st.markdown("""
 
 # साइडबार
 with st.sidebar:
-    st.title("🎓 RK COACHING CENTRE")
+    st.title("🤖 RK AI Studio")
     st.write("आपका पर्सनल AI मेंटर")
     api_key = st.secrets["GEMINI_API_KEY"]
     language = st.sidebar.radio("भाषा चुनें / Select Language", ["हिंदी (Hindi)", "English"])
@@ -56,7 +56,7 @@ if st.button("कंटेंट जनरेट करें 🚀"):
     else:
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-2.5-flash")
+            model = genai.GenerativeModel("gemini-3.0-flash")
 
             if mode == "💡 टॉपिक समझें (Concept)":
                 prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक को बहुत आसान तरीके से समझाएं: {user_input}"
