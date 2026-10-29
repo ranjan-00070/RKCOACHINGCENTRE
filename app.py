@@ -1,50 +1,66 @@
 import streamlit as st
 import google.generativeai as genai
+from streamlit_mic_recorder import speech_to_text
 
-# पेज कॉन्फ़िगरेशन
-st.set_page_config(page_title="RK AI Studio - Smart Learning", page_icon="⚡", layout="wide")
+# पेज कॉन्फिगरेशन
+st.set_page_config(page_title="RK AI Studio - Smart Learning", page_icon="🤖", layout="wide")
 
 # कस्टम स्टाइलिंग
 st.markdown("""
 <style>
     .main { background-color: #0e1117; }
-    .stButton>button { width: 100%; border-radius: 8px; height: 3em; background-color: #ff4b4b; color: white; }
+    .stButton>button { width: 100%; border-radius: 8px; height: 3em; background-color: #ff4b4b; color: white; font-weight: bold; }
 </style>
 """, unsafe_allow_html=True)
 
 # साइडबार
 with st.sidebar:
-    st.title("⚡ RK AI Studio")
-    st.write("✨ **आपका Personal AI**")
+    st.title("🤖 RK AI Studio")
+    st.write(" आपका Personal AI ")
     api_key = st.secrets["GEMINI_API_KEY"]
-    language = st.sidebar.radio("🌐 Select Language / भाषा चुनें:", ["हिंदी (Hindi)", "English"])
+    language = st.sidebar.radio("भाषा चुनें / Select Language:", ["हिंदी (Hindi)", "English"])
     st.markdown("---")
     st.markdown("### Choose Your Topic:")
-    mode = st.radio("आपको क्या करना है, चुनें:", ["💡 टॉपिक समझें (Concept)", "🛣️ रोडमैप (Roadmap)", "📝 टेस्ट / क्विज़ (Quiz)"])
+    mode = st.radio("आपको क्या करना हैं?", ["💡 समझें (in brief)", "🛣️ प्लान बनाएं (Make Plans)", "📝 सवाल बनाएं (Make Questions)"])
     st.info("💡 केवल एक टॉपिक शुरू करने से आपकी तैयारी बेहतर होगी!")
 
 # मुख्य हेडिंग
-st.title("⚡ AI Thinking For Your Better Learning")
-st.write("कोई भी Topic लिखें, AI उसे Easy Language और Real-Life Examples के साथ समझाएगा।")
+st.title("🧠 𝗔𝗜 𝗧𝗵𝗶𝗻𝗸𝗶𝗻𝗴 💬 𝗙𝗼𝗿 𝗬𝗼𝘂𝗿 𝗕𝗲𝘁𝘁𝗲𝗿 𝗟𝗲𝗮𝗿𝗻𝗶𝗻𝗴 🚀")
+st.write("कोई भी Topic लिखें या बोलें, AI उसे Easy Language और Real-Life Example के साथ समझाएगा।")
 
-# टेक्स्ट इनपुट बॉक्स
-user_input = st.text_input("विषय (Topic) का नाम लिखें:")
+# ---------------------------------------------------------
+# माइक एवं इनपुट
+# ---------------------------------------------------------
+audio_lang = "hi-IN" if language == "हिंदी (Hindi)" else "en-US"
 
+spoken_text = speech_to_text(
+    language=audio_lang, 
+    start_prompt="🎙️ बोलकर Search 🔎 करें (Search By Mic)", 
+    key="speech"
+)
+
+# यदि बोलकर इनपुट मिला तो उसे डिफ़ॉल्ट बनाएं, नहीं तो खाली रखें
+default_topic = spoken_text if spoken_text else ""
+
+user_input = st.text_input("विषय (Topic) का नाम लिखें", value=default_topic)
+
+# ---------------------------------------------------------
 # कंटेंट जनरेशन बटन
-if st.button("✨ AI Search करें"):
+# ---------------------------------------------------------
+if st.button("अब Search 🔎 करें"):
     if not user_input.strip():
-        st.warning("कृपया कोई टॉपिक लिखें।")
+        st.warning("कृपया कोई टॉपिक लिखें या माइक से बोलें!")
     else:
         try:
             genai.configure(api_key=api_key)
             model = genai.GenerativeModel("gemini-2.5-flash")
 
-            if mode == "💡 टॉपिक समझें (Concept)":
-                prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक को बहुत आसान हिंदी में और रियल-लाइफ उदाहरण देकर विस्तार से समझाएं: {user_input}"
-            elif mode == "🛣️ रोडमैप (Roadmap)":
+            if mode == "💡 समझें (in brief)":
+                prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक को बहुत आसान तरीके से समझाएं: {user_input}"
+            elif mode == "🛣️ प्लान बनाएं (Make Plans)":
                 prompt = f"कृपया इस टॉपिक को सीखने के लिए एक पूरा स्टेप-बाय-स्टेप रोडमैप तैयार करें: {user_input}"
             else:
-                prompt = f"कृपया '{user_input}' पर आधारित 5 महत्वपूर्ण क्विज/टेस्ट सवाल उत्तर सहित तैयार करें।"
+                prompt = f"कृपया '{user_input}' पर आधारित 5 महत्वपूर्ण क्विज़/टेस्ट सवाल और उनके जवाब दें।"
 
             # भाषा के अनुसार Gemini को निर्देश
             if language == "हिंदी (Hindi)":
