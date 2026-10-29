@@ -16,12 +16,12 @@ st.markdown("""
 # साइडबार
 with st.sidebar:
     st.title("🤖 RK AI Studio")
-    st.write("आपका Personal AI")
+    st.write(" आपका  Personal  AI ")
     api_key = st.secrets["GEMINI_API_KEY"]
-    language = st.sidebar.radio("भाषा चुनें / Select Language", ["हिंदी (Hindi)", "English"])
+    language = st.sidebar.radio("भाषा चुनें / Select Language:", ["हिंदी (Hindi)", "English"])
     st.markdown("---")
     st.markdown("### Choose Your Topic:")
-    mode = st.radio("आपको क्या करना हैं", ["💡 समझें (in brief)", "🛣️ प्लान बनाएं (Make Plans)", "📝 सवाल बनाएं (Make Questions)"])
+    mode = st.radio("आपको क्या करना हैं?", ["💡 समझें (in brief)", "🛣️ प्लान बनाएं (Make Plans)", "📝 सवाल बनाएं (Make Questions)"])
     st.info("💡 केवल एक टॉपिक शुरू करने से आपकी तैयारी बेहतर होगी!")
 
 # मुख्य हेडिंग
