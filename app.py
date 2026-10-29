@@ -17,8 +17,8 @@ st.markdown("""
 with st.sidebar:
     st.title("🎓 RK COACHING CENTRE")
     st.write("आपका पर्सनल AI मेंटर")
-    api_key = st.secrets["GEMINI_API_KEY"]("अपनी Gemini API Key डालें:", type="password")
-    
+    api_key = st.secrets["AQ.Ab8RN6KOWBBuWzwZIvVJeSIuLSIKFmTtlCfLIAa2Y-s0Zf3BCg"]
+    language = st.sidebar.radio("भाषा चुनें / Select Language", ["हिंदी (Hindi)", "English"])
     st.markdown("---")
     st.markdown("### आपको क्या करना है?")
     mode = st.radio("चुनें:", ["💡 टॉपिक समझें (Concept)", "🛣️ रोडमैप (Roadmap)", "📝 टेस्ट लें (Quiz)"])
@@ -28,38 +28,54 @@ with st.sidebar:
 st.title("⚡ AI Learning & Study Dashboard")
 st.write("कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा और रियल-लाइफ उदाहरण के साथ समझाएगा।")
 
-# वॉइस / माइक इनपुट
-st.write("🎤 **बोलकर टॉपिक बताएं (माइक पर क्लिक करें):**")
-spoken_text = speech_to_text(language='hi-IN', start_prompt="रिकॉर्डिंग शुरू करें", stop_prompt="रोकें", key='speech_input')
+# ---------------------------------------------------------
+# मुख्य हेडिंग एवं माइक / इनपुट
+# ---------------------------------------------------------
+st.title("⚡ AI Learning & Study Dashboard")
+st.write("कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा और रियल-लाइफ उदाहरण के साथ समझाएगा!")
+
+# साइडबार में चुनी भाषा के आधार पर माइक की भाषा सेट करना
+audio_lang = "hi-IN" if language == "हिंदी (Hindi)" else "en-US"
+
+spoken_text = speech_to_text(
+    language=audio_lang, 
+    start_prompt="🎙️ बोलकर टॉपिक बताएं (माइक पर क्लिक करें)", 
+    key="speech"
+)
 
 # यदि बोलकर इनपुट मिला तो उसे डिफ़ॉल्ट बनाएं, नहीं तो खाली रखें
 default_topic = spoken_text if spoken_text else ""
 
-user_input = st.text_input("विषय (Topic) का नाम लिखें:", value=default_topic, placeholder="उदा: What is Cloud Computing, Excel Formulas...")
+user_input = st.text_input("विषय (Topic) का नाम लिखें", value=default_topic)
 
+# ---------------------------------------------------------
 # कंटेंट जनरेशन बटन
+# ---------------------------------------------------------
 if st.button("कंटेंट जनरेट करें 🚀"):
-    if not api_key:
-        st.warning("कृपया पहले साइडबार में अपनी Gemini API Key डालें!")
-    elif not user_input.strip():
+    if not user_input.strip():
         st.warning("कृपया कोई टॉपिक लिखें या माइक से बोलें!")
     else:
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-3.5-flash")
+            model = genai.GenerativeModel("gemini-2.5-flash")
 
             if mode == "💡 टॉपिक समझें (Concept)":
-                prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक '{user_input}' को आसान हिंदी में समझाइए। इसमें शामिल करें: 1. आसान परिभाषा, 2. रियल-लाइफ उदाहरण, 3. महत्वपूर्ण बातें।"
-            elif mode == "🛣️ रोडमैप (Roadmap)":
-                prompt = f"छात्र के लिए '{user_input}' सीखने के लिए स्टेप-बाय-स्टेप 30 दिन का आसान रोडमैप तैयार करें।"
+                prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक को बहुत आसान तरीके से समझाएं: {user_input}"
+            elif mode == "🎯 रोडमैप (Roadmap)":
+                prompt = f"कृपया इस टॉपिक को सीखने के लिए एक पूरा स्टेप-बाय-स्टेप रोडमैप तैयार करें: {user_input}"
             else:
-                prompt = f"विषय '{user_input}' पर आधारित 5 महत्वपूर्ण बहुविकल्पीय प्रश्न (MCQs) बनाएं, जिनके 4 विकल्प हों और अंत में सही उत्तर व व्याख्या भी दें।"
+                prompt = f"कृपया '{user_input}' पर आधारित 5 महत्वपूर्ण क्विज़/टेस्ट सवाल और उनके जवाब दें।"
+
+            # भाषा के अनुसार Gemini को निर्देश
+            if language == "हिंदी (Hindi)":
+                final_prompt = f"{prompt}\n\nकृपया पूरा उत्तर सरल और स्पष्ट हिंदी में दें।"
+            else:
+                final_prompt = f"{prompt}\n\nPlease provide the complete response clearly in English."
 
             with st.spinner("AI आपके लिए कंटेंट तैयार कर रहा है..."):
-                response = model.generate_content(prompt)
+                response = model.generate_content(final_prompt)
 
             st.success("तैयार है!")
-            st.markdown("---")
             st.markdown(response.text)
 
         except Exception as e:
