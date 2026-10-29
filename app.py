@@ -1,7 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
 from streamlit_mic_recorder import speech_to_text
-import urllib.parse
 
 # ---------------------------------------------------------
 # 1. पेज सेटअप (Meta Config)
@@ -41,4 +40,31 @@ st.markdown("""
     .header-card {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-
+        border-radius: 18px;
+        padding: 24px 28px;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        background: rgba(255, 75, 75, 0.15);
+        color: #ff6b6b;
+        border: 1px solid rgba(255, 75, 75, 0.3);
+        margin-bottom: 12px;
+        letter-spacing: 0.6px;
+    }
+
+    /* इनपुट बॉक्स */
+    .stTextInput input {
+        background: rgba(30, 41, 59, 0.8) !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 12px !important;
+        padding: 14px 18px !important;
