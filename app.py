@@ -1,7 +1,8 @@
 import streamlit as st
 import google.generativeai as genai
 from streamlit_mic_recorder import speech_to_text
-
+from gtts import gTTS
+from io import BytesIO
 # पेज कॉन्फिगरेशन
 st.set_page_config(page_title="RK AI Studio - Smart Learning", page_icon="🤖", layout="wide")
 
@@ -76,6 +77,14 @@ if st.button("अब Search 🔎 करें"):
 
             st.success("तैयार है!")
             st.markdown(response.text)
-
+# Audio Player Code
+        try:
+            tts_lang = 'hi' if language == "हिंदी (Hindi)" else 'en'
+            sound_file = BytesIO()
+            tts = gTTS(text=response.text, lang=tts_lang, slow=False)
+            tts.write_to_fp(sound_file)
+            st.audio(sound_file, format='audio/mp3')
+        except Exception as e:
+            st.warning("Audio generate nahi ho paya.")
         except Exception as e:
             st.error(f"कुछ समस्या आई: {e}")
