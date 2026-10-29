@@ -17,7 +17,7 @@ st.markdown("""
 with st.sidebar:
     st.title("🎓 RK COACHING CENTRE")
     st.write("आपका पर्सनल AI मेंटर")
-    api_key = st.secrets["AQ.Ab8RN6KOWBBuWzwZIvVJeSIuLSIKFmTtlCfLIAa2Y-s0Zf3BCg"]
+    api_key = st.secrets["GEMINI_API_KEY"]
     language = st.sidebar.radio("भाषा चुनें / Select Language", ["हिंदी (Hindi)", "English"])
     st.markdown("---")
     st.markdown("### आपको क्या करना है?")
