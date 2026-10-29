@@ -68,3 +68,15 @@ st.markdown("""
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 12px !important;
         padding: 14px 18px !important;
+        font-size: 1.05rem !important;
+        transition: all 0.3s ease;
+    }
+    .stTextInput input:focus {
+        border-color: #6366f1 !important;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+    }
+
+    /* बटन स्टाइलिंग */
+    .stButton>button {
+        width: 100%;
+        background: linear-gradient(135deg, #ff4b4b 0%, #dc2626 100%)
