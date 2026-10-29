@@ -86,5 +86,5 @@ if st.button("अब Search 🔎 करें"):
             st.audio(sound_file, format='audio/mp3')
         except Exception as e:
             st.warning("Audio generate nahi ho paya.")
-        except Exception as e:
+      
             st.error(f"कुछ समस्या आई: {e}")
