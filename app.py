@@ -17,7 +17,7 @@ st.markdown("""
 with st.sidebar:
     st.title("🎓 RK COACHING CENTRE")
     st.write("आपका पर्सनल AI मेंटर")
-    api_key = st.text_input("अपनी Gemini API Key डालें:", type="password")
+    api_key = st.secrets["GEMINI_API_KEY"]("अपनी Gemini API Key डालें:", type="password")
     
     st.markdown("---")
     st.markdown("### आपको क्या करना है?")
