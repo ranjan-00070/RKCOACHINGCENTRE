@@ -38,7 +38,7 @@ audio_lang = "hi-IN" if language == "हिंदी (Hindi)" else "en-US"
 
 spoken_text = speech_to_text(
     language=audio_lang, 
-    start_prompt="🎙️ बोलकर टॉपिक बताएं (माइक पर क्लिक करें)", 
+    start_prompt="🎙️ बोलकर Search 🔎 करें (Search By Mic)", 
     key="speech"
 )
 
@@ -50,7 +50,7 @@ user_input = st.text_input("विषय (Topic) का नाम लिखे�
 # ---------------------------------------------------------
 # कंटेंट जनरेशन बटन
 # ---------------------------------------------------------
-if st.button("कंटेंट जनरेट करें 🚀"):
+if st.button("अब Search 🔎 करें"):
     if not user_input.strip():
         st.warning("कृपया कोई टॉपिक लिखें या माइक से बोलें!")
     else:
