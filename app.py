@@ -15,7 +15,7 @@ st.markdown("""
 
 # साइडबार
 with st.sidebar:
-    st.title("🎓 RK Coaching Centre")
+    st.title("🎓 RK COACHING CENTRE")
     st.write("आपका पर्सनल AI मेंटर")
     api_key = st.text_input("अपनी Gemini API Key डालें:", type="password")
     
@@ -46,7 +46,7 @@ if st.button("कंटेंट जनरेट करें 🚀"):
     else:
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-pro")
+            model = genai.GenerativeModel("gemini-1.5-flash")
 
             if mode == "💡 टॉपिक समझें (Concept)":
                 prompt = f"आप एक बेहतरीन शिक्षक हैं। कृपया इस टॉपिक '{user_input}' को आसान हिंदी में समझाइए। इसमें शामिल करें: 1. आसान परिभाषा, 2. रियल-लाइफ उदाहरण, 3. महत्वपूर्ण बातें।"
