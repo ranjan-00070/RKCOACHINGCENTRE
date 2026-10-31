@@ -203,7 +203,7 @@ with col_text:
     user_input = st.text_input(
         "📌 विषय (Topic) का नाम लिखें या माइक दबाएं:",
         value=st.session_state.topic_input,
-        placeholder="उदा. What is Computer?, Computer Memory (RAM/ROM), Python Loops, Database Basics..."
+        placeholder="उदा. What is Computer?, Computer Memory (RAM/ROM), Database Basics..."
     )
 
 with col_mic:
