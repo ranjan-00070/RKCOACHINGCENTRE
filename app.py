@@ -177,7 +177,7 @@ with st.sidebar:
 # ---------------------------------------------------------
 st.markdown("""
 <div class="header-card">
-    <div class="badge">🚀 Powered by Gemini 1.5 Flash</div>
+    <div class="badge">🚀 Powered by Gemini 3.5 Flash</div>
     <h1 style="margin: 0; font-size: 2.1rem; font-weight: 800; background: linear-gradient(90deg, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
         AI Thinking & Learning Partner 🧠
     </h1>
