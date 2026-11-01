@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 from streamlit_mic_recorder import speech_to_text
 
 # 1. पेज सेटअप
@@ -103,10 +103,8 @@ if search_clicked:
         )
     else:
         try:
-            genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-            
-            # यहाँ अपडेटेड मॉडल gemini-3.8-flash सेट किया गया है
-            model = genai.GenerativeModel("gemini-3.8-flash")
+            # नया तेज़ GenAI क्लाइंट
+            client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
             if "Hindi" in language:
                 lang_rule = (
@@ -141,7 +139,10 @@ if search_clicked:
             )
 
             with st.spinner("🔍 सर्च किया जा रहा है... कृपया प्रतीक्षा करें..."):
-                response = model.generate_content(full_prompt)
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=full_prompt,
+                )
 
                 with st.container(border=True):
                     st.subheader(f"📌 परिणाम: {active_topic}")
