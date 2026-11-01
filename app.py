@@ -106,7 +106,7 @@ if search_clicked:
             genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
             
             # एक्टिव मॉडल
-            model = genai.GenerativeModel("gemini-2.5-flash")
+            model = genai.GenerativeModel("gemini-4-argon")
 
             if "Hindi" in language:
                 lang_rule = (
