@@ -70,4 +70,82 @@ with col_text:
     )
 
 with col_mic:
-    spoken
+    spoken_text = speech_to_text(
+        language=audio_lang,
+        start_prompt="🎙️ बोलें",
+        stop_prompt="⏹️ रुकें",
+        key="speech_input"
+    )
+    if spoken_text:
+        st.session_state.search_query = spoken_text
+        st.rerun()
+
+# 5. मुख्य सर्च बटन
+search_clicked = st.button(
+    "🔍 सर्च करें / Search",
+    type="primary",
+    use_container_width=True
+)
+
+# 6. सर्च लॉजिक एवं आउटपुट जनरेशन
+active_topic = user_input.strip()
+
+if search_clicked:
+    if not active_topic:
+        st.warning(
+            "⚠️ कृपया पहले कोई टॉपिक लिखें या बोलें / "
+            "Please write or speak a topic first."
+        )
+    elif "GEMINI_API_KEY" not in st.secrets:
+        st.error(
+            "❌ 'GEMINI_API_KEY' नहीं मिली! "
+            "कृपया Streamlit Secrets में अपनी API Key जोड़ें।"
+        )
+    else:
+        try:
+            genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+            
+            # एक्टिव मॉडल
+            model = genai.GenerativeModel("gemini-2.5-flash")
+
+            if "Hindi" in language:
+                lang_rule = (
+                    "उत्तर पूरी तरह से सरल और स्पष्ट हिंदी में दें। "
+                    "तकनीकी शब्दों को कोष्ठक में अंग्रेजी में लिख सकते हैं।"
+                )
+            else:
+                lang_rule = "Provide the entire response clearly in English."
+
+            if "Understand Concept" in mode:
+                goal_prompt = (
+                    f"टॉपिक '{active_topic}' को बिल्कुल आसान तरीके से समझाएं। "
+                    "इसमें परिभाषा, कैसे काम करता है, एक दैनिक जीवन का उदाहरण "
+                    "और इसके मुख्य फायदे बताएं।"
+                )
+            elif "Learning Roadmap" in mode:
+                goal_prompt = (
+                    f"टॉपिक '{active_topic}' को शुरुआत से सीखने का पूरा "
+                    "स्टेप-बाय-स्टेप रोडमैप (Beginner से Advanced) तैयार करें।"
+                )
+            else:
+                goal_prompt = (
+                    f"टॉपिक '{active_topic}' पर 3 बहुविकल्पीय प्रश्न (MCQs) "
+                    "उत्तर सहित और 2 महत्वपूर्ण अभ्यास प्रश्न तैयार करें।"
+                )
+
+            full_prompt = (
+                f"विषय: {active_topic}\n"
+                f"लक्ष्य: {goal_prompt}\n"
+                f"भाषा: {lang_rule}\n"
+                "फॉर्मेट: स्पष्ट सब-हेडिंग्स, बुलेट पॉइंट्स और आसान भाषा में उत्तर प्रस्तुत करें।"
+            )
+
+            with st.spinner("🔍 सर्च किया जा रहा है... कृपया प्रतीक्षा करें..."):
+                response = model.generate_content(full_prompt)
+
+                with st.container(border=True):
+                    st.subheader(f"📌 परिणाम: {active_topic}")
+                    st.markdown(response.text)
+
+        except Exception as e:
+            st.error(f"❌ सर्च करने में समस्या आई: {e}")
