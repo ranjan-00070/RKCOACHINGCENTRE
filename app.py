@@ -170,7 +170,7 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.info("💡 **सुझाव / Pro-Tip:** एक समय में एक ही टॉपिक पर फोकस करें ताकि आप गहराई से समझ सकें।")
+    st.info("💡 **सुझाव / Pro-Tip:** Focus on one topic at a time so that you can understand it in depth/एक समय में एक ही टॉपिक पर फोकस करें ताकि आप गहराई से समझ सकें।")
 
 # ---------------------------------------------------------
 # 4. मुख्य हेडर (AI Thinking & Learning Partner)
@@ -182,8 +182,8 @@ st.markdown("""
         RK AI Thinking & Learning Partner 🧠
     </h1>
     <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 1.05rem;">
-        कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा, वास्तविक उदाहरणों और सही स्ट्रक्चर के साथ समझाएगा।<br>
-        <span style="font-size: 0.95rem; color: #64748b;">(Type or speak any topic, AI will explain it with simple explanations and real-world examples.)</span>
+        Type or speak any topic, AI will explain it with simple explanations and real-world examples.<br>
+        <span style="font-size: 0.95rem; color: #64748b;">(कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा, वास्तविक उदाहरणों और सही स्ट्रक्चर के साथ समझाएगा।.)</span>
     </p>
 </div>
 """, unsafe_allow_html=True)
