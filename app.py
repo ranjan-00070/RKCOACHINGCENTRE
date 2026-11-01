@@ -177,9 +177,9 @@ with st.sidebar:
 # ---------------------------------------------------------
 st.markdown("""
 <div class="header-card">
-    <div class="badge">🚀 Powered by Gemini 3.5 Flash</div>
+    <div class="badge">🚀 Powered by RK COACHING CENTRE</div>
     <h1 style="margin: 0; font-size: 2.1rem; font-weight: 800; background: linear-gradient(90deg, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        AI Thinking & Learning Partner 🧠
+        RK AI Thinking & Learning Partner 🧠
     </h1>
     <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 1.05rem;">
         कोई भी टॉपिक लिखें या बोलें, AI उसे आसान भाषा, वास्तविक उदाहरणों और सही स्ट्रक्चर के साथ समझाएगा।<br>
